@@ -178,25 +178,24 @@ class ConfirmPurchaseButton extends StatelessWidget {
 
   const ConfirmPurchaseButton({required this.selectedPaymentMethod});
 
-  Future<void> sendPostRequest(BuildContext context, String total,
-      String adresse, String paiement) async {
-    var url = Uri.parse('http://ptsv3.com/t/EPSISHOPC1/');
+  Future<void> sendPostRequest(BuildContext context, String total) async {
+    var url = Uri.parse('http://ptsv3.com/t/EPSISHOPC12/');
     var body = jsonEncode(<String, String>{
       'total': total,
-      'adresse': adresse,
-      'paiement': paiement,
+      'adresse': "8 rue des ouvertues de portes, 93204 CORBEAUX",
+      'paiement': selectedPaymentMethod.value!,
     });
 
     var response = await http
         .post(url, body: body, headers: {'Content-Type': 'application/json'});
     if (response.statusCode == 200) {
       print('Request successful');
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Commande réussie'), duration: Duration(milliseconds: 500),));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Commande réussie'), duration: Duration(seconds: 1),));
       Provider.of<Cart>(context, listen: false).clearCart();
       GoRouter.of(context).go('/');
     } else {
       print('Request failed with status: ${response.statusCode}.');
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Échec de la commande'), duration: Duration(milliseconds: 500),));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Échec de la commande'), duration: Duration(milliseconds: 800),));
     }
   }
 
@@ -211,8 +210,7 @@ class ConfirmPurchaseButton extends StatelessWidget {
           return ElevatedButton(
             onPressed: value != null
                 ? () {
-                    sendPostRequest(context, cart.priceTotalInEuro(), 'adresse',
-                        'paiement');
+                    sendPostRequest(context, cart.priceTotalInEuro());
                   }
                 : null,
             child: const Text('Confirmer l\'achat'),
