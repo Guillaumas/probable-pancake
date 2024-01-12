@@ -5,6 +5,7 @@ import 'package:epsi_shop/page/detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'page/confirmation_page.dart';
 import 'page/home_page.dart';
 
 //Ici on créé notre routeur
@@ -12,10 +13,9 @@ import 'page/home_page.dart';
 // et au retour, elle revient sur "/"
 final _router = GoRouter(routes: [
   GoRoute(path: '/', builder: (_, __) => HomePage(), routes: [
-    GoRoute(
-      path: 'cart',
-      builder: (_, __) => CartPage(),
-    ),
+    GoRoute(path: 'cart', builder: (_, __) => CartPage(), routes: [
+      GoRoute(path: 'confirmation', builder: (_, __) => ConfirmationPage())
+    ]),
     GoRoute(
       path: 'about-us',
       builder: (_, __) => AboutUsPage(),

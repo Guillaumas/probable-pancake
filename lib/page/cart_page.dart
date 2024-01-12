@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../bo/cart.dart';
@@ -33,7 +34,7 @@ class EmptyCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,13 +60,11 @@ class ListCart extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Votre panier total est de"),
+                    const Text("Votre panier total est de"),
                     Text(cart.priceTotalInEuro())
                   ],
                 ),
-                //Ajouter la ligne de total (Row Votre panier total est de)
-                //Avec le montant
-                Flexible(
+                Expanded(
                   child: ListView.builder(
                       itemCount: cart.items.length,
                       itemBuilder: (context, index) => ListTile(
@@ -76,7 +75,6 @@ class ListCart extends StatelessWidget {
                               style:
                                   const TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            //Supprimer un élément du panier
                             trailing: TextButton(
                               child: const Text("SUPPRIMER"),
                               onPressed: () => context
@@ -85,6 +83,16 @@ class ListCart extends StatelessWidget {
                             ),
                           )),
                 ),
+                ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                        Theme.of(context).colorScheme.inversePrimary),
+                  ),
+                  onPressed: () {
+                    GoRouter.of(context).go('/cart/confirmation');
+                  },
+                  child: Text('Valider le panier', style: TextStyle(color: Theme.of(context).colorScheme.onPrimary)),
+                )
               ],
             ));
   }

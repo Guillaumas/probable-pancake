@@ -13,6 +13,7 @@ class DetailPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text(article.nom),
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),

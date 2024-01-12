@@ -4,8 +4,20 @@ import 'package:flutter/foundation.dart';
 class Cart with ChangeNotifier {
   final _items = <Article>[];
 
-  String priceTotalInEuro() =>
-      "${_items.fold(0 as num, (itemPrev, item) => itemPrev + item.prix) / 10}€";
+  void clearCart() {
+    _items.clear();
+    notifyListeners();
+  }
+
+  String priceTotalInEuro() {
+    double total = _items.fold(0.0, (itemPrev, item) => itemPrev + item.prix);
+    return "${(total).toStringAsFixed(2)} €";
+  }
+
+  double calculateSubtotal() {
+    return _items.fold(0, (total, current) => total + current.prix);
+  }
+
   //String priceTotalInEuroSimpl() {
   //  var prix = 0 as num;
   //  for (Article item in _items) {
@@ -25,4 +37,5 @@ class Cart with ChangeNotifier {
     _items.remove(article);
     notifyListeners();
   }
+
 }

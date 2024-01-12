@@ -4,11 +4,16 @@ import 'package:latlong2/latlong.dart';
 
 class AboutUsPage extends StatelessWidget {
   AboutUsPage({super.key});
+
   final _controller = MapController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("EPSI Shop"),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
       body: FlutterMap(
         mapController: _controller,
         options: const MapOptions(

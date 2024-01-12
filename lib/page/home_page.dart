@@ -14,6 +14,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
+        title: const Text("EPSI Shop"),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
           Badge(
             label: Text("${context.watch<Cart>().items.length}"),
